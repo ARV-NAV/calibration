@@ -4,6 +4,11 @@ from typing import Tuple
 
 
 def get_mtx_dist() -> Tuple[np.ndarray, np.ndarray]:
+    """Get MTX and DIST
+        Load and return the mtx and dist np ndarrays
+
+    :return: Tuple(np.ndarry, np.ndarray)
+    """
     with open("./data/mtx.json", "r") as fp:
         mtx = np.asarray(json.load(fp))
 
