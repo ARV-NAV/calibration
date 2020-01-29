@@ -44,11 +44,18 @@ cv.destroyAllWindows()
 # calibrate camera
 ret, mtx, dist, rvecs, tvecs = cv.calibrateCamera(objpoints, imgpoints, dimsOfImage, None, None)
 
-with open("./data/mtx.json", "w+") as fp:
+with open("./data/mtx.json", "w+", newline="\n") as fp:
     fp.write(json.dumps(mtx.tolist(), indent=4))
 
-with open("./data/dist.json", "w+") as fp:
+with open("./data/dist.json", "w+", newline="\n") as fp:
     fp.write(json.dumps(dist.tolist(), indent=4))
+
+mean_error = 0
+for i in range(len(objpoints)):
+    imgpoints2, _ = cv.projectPoints(objpoints[i], rvecs[i], tvecs[i], mtx, dist)
+    error = cv.norm(imgpoints[i], imgpoints2, cv.NORM_L2)/len(imgpoints2)
+    mean_error += error
+print( "total error: {}".format(mean_error/len(objpoints)) )
 
 print(mtx)
 print(dist)
