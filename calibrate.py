@@ -44,9 +44,6 @@ cv.destroyAllWindows()
 # calibrate camera
 ret, mtx, dist, rvecs, tvecs = cv.calibrateCamera(objpoints, imgpoints, dimsOfImage, None, None)
 
-# import pdb; pdb.set_trace()
-
-
 with open("./data/mtx.json", "w+") as fp:
     fp.write(json.dumps(mtx.tolist(), indent=4))
 
