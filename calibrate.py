@@ -1,6 +1,7 @@
 import numpy as np
 import cv2 as cv
 import glob
+import json
 
 CHESSBOARD_ROWS = 9
 CHESSBOARD_COLS = 6
@@ -42,6 +43,15 @@ cv.destroyAllWindows()
 
 # calibrate camera
 ret, mtx, dist, rvecs, tvecs = cv.calibrateCamera(objpoints, imgpoints, dimsOfImage, None, None)
+
+# import pdb; pdb.set_trace()
+
+
+with open("./data/mtx.json", "w+") as fp:
+    fp.write(json.dumps(mtx.tolist(), indent=4))
+
+with open("./data/dist.json", "w+") as fp:
+    fp.write(json.dumps(dist.tolist(), indent=4))
 
 print(mtx)
 print(dist)
